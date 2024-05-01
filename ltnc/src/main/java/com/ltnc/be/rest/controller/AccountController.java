@@ -22,6 +22,7 @@ public class AccountController {
   BaseResponse<LoginResponse> login(@RequestBody LoginRequest request) {
     return BaseResponse.of(accountFacade.login(request));
   }
+
   @PostMapping("/create-employee")
   @Operation(tags = "Account APIs")
   @ResponseStatus(HttpStatus.CREATED)

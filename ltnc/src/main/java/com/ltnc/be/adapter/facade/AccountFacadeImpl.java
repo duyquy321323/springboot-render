@@ -7,12 +7,11 @@ import com.ltnc.be.domain.exception.PasswordNotMatchException;
 import com.ltnc.be.domain.user.User;
 import com.ltnc.be.domain.user.UserRole;
 import com.ltnc.be.port.facade.AccountFacade;
-import com.ltnc.be.port.repository.UserRepository;
 import com.ltnc.be.port.repository.EmployeeRepository;
+import com.ltnc.be.port.repository.UserRepository;
 import com.ltnc.be.port.service.JwtService;
 import com.ltnc.be.rest.request.LoginRequest;
 import com.ltnc.be.rest.request.UpsertEmployeeRequest;
-import com.ltnc.be.rest.request.UpsertUserRequest;
 import com.ltnc.be.rest.response.LoginResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -42,10 +41,10 @@ public class AccountFacadeImpl implements AccountFacade {
     String accessToken = jwtService.generateToken(user.getId().toString());
 
     return LoginResponse.builder()
-            .accessToken(accessToken)
-            .userId(user.getId())
-            .name(user.getFullName())
-            .build();
+        .accessToken(accessToken)
+        .userId(user.getId())
+        .name(user.getFullName())
+        .build();
   }
 
   @Override
@@ -56,7 +55,8 @@ public class AccountFacadeImpl implements AccountFacade {
     if (existedUser.isPresent())
       throw new EntityAlreadyExistedException("Username is already existed in the system");
 
-    Employee employee= new Employee(
+    Employee employee =
+        new Employee(
             UserRole.MEMBER,
             request.getUsername(),
             request.getEmail(),
@@ -68,8 +68,7 @@ public class AccountFacadeImpl implements AccountFacade {
             request.getAddress(),
             request.getDegreeType(),
             request.getDutyType(),
-            request.getDepartment()
-    );
+            request.getDepartment());
     employeeRepository.save(employee);
   }
 }
